@@ -1,0 +1,168 @@
+.experience-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.experience-timeline {
+  width: 100%;
+  max-width: 960px;
+  margin-top: 56px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+
+.experience-timeline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    var(--grad-start),
+    var(--grad-end)
+  );
+  opacity: 0.25;
+}
+
+.timeline-item {
+  display: flex;
+  position: relative;
+}
+
+.timeline-item.left {
+  justify-content: flex-end;
+  padding-right: 36px;
+}
+
+.timeline-item.right {
+  justify-content: flex-start;
+  padding-left: 36px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--grad-start),
+    var(--grad-end)
+  );
+  top: 28px;
+}
+
+.timeline-item.left .experience-card {
+  margin-right: 6px;
+}
+
+.timeline-item.right .experience-card {
+  margin-left: 6px;
+}
+
+.experience-card {
+  width: 100%;
+  max-width: 420px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 28px;
+  backdrop-filter: blur(8px) saturate(140%);
+}
+
+.experience-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.time {
+  font-size: 0.85rem;
+  opacity: 0.5;
+}
+
+.company {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.experience-desc {
+  margin-top: 16px;
+  line-height: 1.7;
+}
+
+.experience-tags {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.exp-tag {
+  font-size: 0.75rem;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.06);
+  opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+  .experience-timeline::before {
+    left: 10px;
+    transform: none;
+  }
+
+  .timeline-item {
+    padding-left: 36px;
+    padding-right: 0;
+    justify-content: flex-start;
+  }
+
+  .timeline-item.left,
+  .timeline-item.right {
+    padding-left: 36px;
+    padding-right: 0;
+  }
+
+  .timeline-item.left .experience-card,
+  .timeline-item.right .experience-card {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .timeline-dot {
+    left: 0;
+    transform: none;
+  }
+
+  .experience-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .experience-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .experience-card {
+    padding: 22px;
+  }
+}

@@ -1,0 +1,151 @@
+/* ============================
+   HEADER
+============================ */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* ============================
+   NAV (container controls width)
+============================ */
+nav {
+  background-color: #1c172022;
+  padding: 18px 40px;
+  backdrop-filter: blur(8px) saturate(230%) contrast(100%);
+  -webkit-backdrop-filter: blur(8px) saturate(230%) contrast(100%);
+  border-radius: 80px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ============================
+   LOGO
+============================ */
+.logo {
+  font-size: 36px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ============================
+   DESKTOP NAV
+============================ */
+.nav-elements {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-elements .link {
+  position: relative;
+  opacity: 0.4;
+  cursor: pointer;
+  padding: 12px 0;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-primary);
+  transition: opacity 0.25s ease;
+  text-decoration: none;
+}
+
+.nav-elements .link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 4px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--grad-start), var(--grad-end));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.nav-elements .link:hover,
+.nav-elements .link.active {
+  opacity: 1;
+}
+
+.nav-elements .link:hover::after,
+.nav-elements .link.active::after {
+  transform: scaleX(1);
+}
+
+/* ============================
+   MENU BUTTON (MOBILE)
+============================ */
+.menu-btn {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+/* ============================
+   MOBILE DRAWER
+============================ */
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  background: rgba(12, 8, 20, 0.6);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  transform: translateX(100%);
+  transition: transform 0.4s ease;
+  z-index: 999999;
+}
+
+.mobile-nav.open {
+  transform: translateX(0);
+}
+
+.close-btn {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  font-size: 32px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.mobile-links {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+  padding-left: 40px;
+}
+
+.mobile-links .link {
+  font-size: 1.4rem;
+  font-family: 'JetBrains Mono', monospace;
+  opacity: 0.8;
+}
+
+.mobile-links .link.active {
+  opacity: 1;
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+@media (max-width: 768px) {
+  .nav-elements.desktop {
+    display: none;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+}

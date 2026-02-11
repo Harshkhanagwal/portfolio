@@ -1,0 +1,26 @@
+.footer {
+  margin-top: 30px;
+  padding: 24px 0;
+margin-bottom: 30px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  opacity: 0.5;
+}
+
+.footer-left,
+.footer-right {
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
