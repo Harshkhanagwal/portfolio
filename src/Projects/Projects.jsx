@@ -5,16 +5,26 @@ import { FiExternalLink } from "react-icons/fi"
 import codingBuddy from '../assets/codingbuddy.png'
 import textEvoke from '../assets/textEvoke.png'
 import easyC from '../assets/easyC.png'
+import kodingKakshaAI from '../assets/kodingkaksha.png'
 
 const Projects = () => {
   const [projects] = useState([
+   {
+    title: "KodingKaksha_AI - AI-Powered Learning Platform",
+    description:
+      "An AI-driven learning platform that offers structured programming lessons, coding test with online IDE. role based access control etc",
+    image: kodingKakshaAI,
+    skills: ["React.js", "Node.js", "Express.js", "MongoDB", "AI Integration", "JWT Authentication"],
+    github: "https://github.com/Harshkhanagwal/koding-kaksha-ai",
+    live: "koding-kaksha-ai.vercel.app/"
+},
     {
-    title: "Coding Buddy – AI-based IDE",
+    title: "Coding Buddy - AI-based IDE",
     description:
       "A web-based IDE that supports code execution in 50+ languages with an AI assistant that explains logic step by step, helping users learn and debug effectively.",
     image: codingBuddy,
     skills: ["React.js", "Vite", "AI Integration", "Piston API"],
-    github: "",
+    github: "https://github.com/Harshkhanagwal/coding-buddy",
     live: "https://coding-buddy-ai.netlify.app"
   },
   {
