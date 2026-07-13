@@ -12,16 +12,16 @@ const experienceData = [
   {
     role: 'Software Engineering Intern',
     time: 'Internship',
-    company: 'Company Name',
-    desc: 'Focused on backend fundamentals, API development, and understanding production workflows.',
+    company: 'Makkpress Technologies',
+    desc: 'Focused on backend fundamentals, API development in MERN stack also working on CMS based tools for eCommerce products',
     tags: ['Node.js', 'APIs']
   },
   {
     role: 'Developer Intern',
     time: 'Internship',
-    company: 'Company Name',
-    desc: 'Worked on small features, bug fixes, and learned how real-world codebases evolve.',
-    tags: ['JavaScript', 'Git']
+    company: 'Radionics Technologies',
+    desc: 'Worked on the frontend part of .net based web application.',
+    tags: ['JavaScript', 'Git', 'HTML', 'CSS', 'javascript']
   }
 ]
 
