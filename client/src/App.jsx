@@ -1,120 +1,22 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+
+import './Style/App.css'
+import './Style/index.css'
+import './Style/Typography.css'
+import './Style/form.css'
+
+import Test from './Test'
+import HeroSection from './components/HeroSection/HeroSection'
+import Navbar from './components/Navbar/Navbar'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      <Navbar/>
+      <HeroSection/>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam ullam illum sed quod velit doloribus eligendi ad, ab ea ipsa voluptates aspernatur consequatur quas at! A ipsum voluptate repudiandae reiciendis voluptatem obcaecati sequi omnis modi culpa. Obcaecati, laudantium? Rerum minus eum esse quas ipsum ex repudiandae maxime itaque facilis nesciunt pariatur quaerat illum sapiente consectetur optio praesentium impedit voluptas laboriosam quo perspiciatis dignissimos, vero vitae officiis iusto. Quisquam sit quae atque illo nihil eos voluptas minima dolorem ad voluptates voluptatem error adipisci, similique molestiae, voluptatibus excepturi dolor doloribus tempore. Natus dignissimos cupiditate dolore sint deserunt consectetur voluptatibus iusto enim possimus, incidunt dicta in obcaecati reiciendis, aperiam vitae fugiat praesentium nam! Et quaerat fugit excepturi repellat dignissimos temporibus officia, magni consectetur illum nisi architecto beatae, recusandae, unde numquam voluptatem autem? Aperiam provident nemo distinctio modi rem? Possimus placeat dolorum illum iste minima totam voluptatem quidem molestiae quos nesciunt earum esse officia maiores error quo unde explicabo natus, odit modi optio distinctio sit. Cum aut, minus pariatur incidunt, repellendus, tenetur dolorem veritatis voluptatibus ullam earum temporibus facilis laboriosam voluptatem consequatur repudiandae? Assumenda voluptas cum excepturi ut. Voluptatem deleniti cumque, perferendis omnis beatae odio exercitationem quasi unde? Hic tempore optio nesciunt soluta, quos est pariatur rerum maiores quis architecto et illum corporis voluptates libero consequuntur quasi rem similique dolores, laborum autem ea! Ratione saepe nihil architecto earum a? Debitis adipisci odio delectus ab doloremque perspiciatis animi molestiae ratione maiores ex veritatis iusto quaerat, quia nostrum magnam fuga unde aperiam vel ullam quos expedita voluptatem consequuntur labore! Voluptas, veritatis! Harum vitae ipsum doloremque debitis neque sit laboriosam, modi pariatur quae consectetur atque. Consectetur soluta mollitia dolor, recusandae quia suscipit culpa quod velit omnis magnam dicta quae illo quasi cumque laborum fuga maxime esse amet est consequatur! Impedit dolore cum at magni dolor porro neque accusantium aperiam delectus, totam cupiditate qui vitae consequatur similique! Totam fugiat rem, eaque facere dolores magni distinctio itaque architecto, illo reprehenderit natus quis? Commodi provident nemo tempora deserunt itaque, magnam, quasi neque, cupiditate dolor qui debitis aliquid temporibus suscipit eius laborum illo totam iure odio in ea asperiores minus? Vitae nam quo dolorum optio non a qui suscipit, possimus dolorem quae ad vero eos ipsum, odit recusandae nesciunt blanditiis? Eveniet vel facilis obcaecati dolorum sit praesentium provident pariatur cumque voluptate beatae, ut eaque quia officiis eos veritatis quasi repudiandae consequuntur cupiditate. Ratione, dolor dolore enim cumque facilis perferendis ipsum provident culpa similique maiores voluptatum exercitationem! Earum nemo ad tempore hic, voluptas culpa ut rerum necessitatibus? Quaerat itaque animi, hic atque labore ratione, sequi accusamus, debitis blanditiis saepe placeat rerum nostrum alias qui modi. Molestias, amet ducimus fugiat nesciunt fuga tempore odio cupiditate? Mollitia provident eaque corporis dolore, accusamus rem eos earum cupiditate maiores libero quo aut laudantium soluta natus? Dolores omnis placeat ipsam laudantium eaque, asperiores unde fugit natus exercitationem quas sint saepe debitis similique doloribus, architecto quidem amet nobis illum. Quam esse impedit, laudantium nisi vero, dolor illo voluptatem culpa libero maxime temporibus suscipit velit cumque officiis. Quos corrupti enim cumque cum maiores voluptate, ipsum natus iste aliquid eveniet, porro nobis omnis vero eum, eligendi quidem. Fuga accusamus dolore impedit repellendus saepe suscipit assumenda inventore ea illum commodi. Rerum, asperiores cupiditate similique sit quo quidem, temporibus neque itaque sequi maxime voluptate sunt beatae, dicta animi iure officiis architecto doloremque at! Eligendi soluta ipsa minus at veritatis ipsum, aliquam vel magnam nisi dicta animi, distinctio reprehenderit, earum saepe ratione dolore consectetur ullam doloremque quae. Aspernatur, asperiores laborum. Tempore nesciunt provident assumenda atque accusantium eius. Quasi deleniti repellat perferendis! Ab doloribus quo vel. Quia sit quisquam fugiat itaque placeat sed, iure quas, quasi autem recusandae vel? Delectus adipisci soluta officia a dicta minus sapiente, quos accusantium porro. Maiores odio accusamus aut esse asperiores dolore, libero alias deleniti, deserunt nostrum pariatur doloribus iste! Ut doloremque quia dicta quo, fugiat velit cumque ratione natus quae fuga? Earum est iste quaerat magnam asperiores accusantium nihil in aperiam repellendus, velit expedita nemo, eius ratione! Voluptatibus reiciendis voluptates, dolor dolorem illo distinctio labore, quis fugiat aliquam tempore expedita earum tenetur. Eius, cumque quia aperiam ratione temporibus modi perferendis aspernatur nostrum, quis vel molestiae doloribus tempore eligendi. Exercitationem quibusdam sit itaque numquam placeat officiis! Vero error quod ad minima quidem ea quaerat. Voluptatibus exercitationem error dolorem esse. Doloribus voluptatibus ut tenetur dolore deleniti minus laboriosam voluptas incidunt dolores? Illo laborum sunt, sit quibusdam modi quasi id voluptatum voluptates repellendus harum distinctio, possimus atque provident! Maxime aut error reprehenderit possimus voluptatibus obcaecati, nemo quos. Laudantium beatae rerum doloribus dicta odit architecto cumque molestiae repellat aliquam minus aperiam atque, libero expedita at est facilis blanditiis. Voluptates a dolores ea animi. Fuga debitis hic illo, sed illum mollitia similique quas quisquam tempore recusandae totam officia vel fugit voluptates iure eligendi nam! Blanditiis reiciendis magni, pariatur delectus mollitia nemo molestias officiis a possimus repudiandae quidem explicabo est veniam fugiat, sit accusantium optio cumque, vitae suscipit ad aliquam accusamus? Sunt deleniti voluptatem id explicabo et, doloremque, impedit ea minus optio quae similique architecto, distinctio culpa repellendus cumque error. Aperiam totam minus assumenda blanditiis nostrum perferendis velit, fugiat maxime pariatur inventore sequi doloribus facere veritatis voluptate doloremque dolor atque veniam expedita non sed delectus? Quod commodi, maiores accusantium mollitia quasi illo officia vel veritatis aspernatur modi. Exercitationem nihil sint cum at eveniet in quas fuga eos tempora eum numquam, quis dolores excepturi perspiciatis officiis repudiandae eius adipisci voluptas impedit id ratione fugit placeat dignissimos? Voluptas dolorum tempore corrupti accusantium deleniti, quae iusto? At doloribus reiciendis doloremque aspernatur non ut odit facere beatae, adipisci eos laboriosam nemo molestiae sequi soluta corrupti repellendus enim labore nam, iure fuga? Sapiente quaerat laboriosam voluptatem tempora, perferendis eveniet incidunt vero ex deleniti nam consectetur ad nobis aperiam corrupti eaque, eligendi molestiae. Laboriosam asperiores architecto mollitia, voluptates autem, maxime esse unde incidunt distinctio sed labore quas velit atque odio. Corrupti, dolores! Tenetur quidem adipisci labore hic, at quo possimus earum dolorum repudiandae. Sit, in! Pariatur itaque eligendi ad distinctio ex, nesciunt aperiam nam enim doloremque possimus officia veritatis est!</p>
     </>
   )
 }

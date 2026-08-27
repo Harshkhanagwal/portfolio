@@ -1,0 +1,219 @@
+.hero-section {
+  width: 100%;
+  min-height: 100vh;
+
+  background-size: cover;
+  background-position: right;
+  background-repeat: no-repeat;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+#hero-section {
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  background-image: url("/assets/heroimage.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+   ========================================================= */
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+
+  width: min(100%, var(--container-width));
+
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+
+  padding-top: 80px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+/* =========================================================
+   EYEBROW
+   ========================================================= */
+
+.hero-eyebrow {
+  margin-bottom: 18px;
+
+  color: var(--color-text-secondary);
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+
+  letter-spacing: var(--tracking-wider);
+}
+
+
+/* =========================================================
+   NAME
+   ========================================================= */
+
+.hero-name {
+  max-width: 850px;
+
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  font-weight: var(--weight-semibold);
+
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+
+/* =========================================================
+   ROLE
+   ========================================================= */
+
+.hero-role {
+  margin-top: 28px;
+
+  color: var(--color-text-primary);
+
+  font-family: var(--font-body);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: var(--weight-medium);
+
+  line-height: var(--leading-snug);
+  letter-spacing: 0.08em;
+}
+
+.hero-role span {
+  color: var(--color-accent-light);
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.hero-description {
+  max-width: 560px;
+
+  margin-top: 24px;
+
+  color: var(--color-text-secondary);
+
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+
+  line-height: var(--leading-relaxed);
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.hero-status {
+  margin-top: 24px;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: var(--color-text-secondary);
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: var(--color-accent);
+
+  box-shadow:
+    0 0 10px rgba(167, 139, 250, 0.7);
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.hero-actions {
+  margin-top: 32px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  #hero-section {
+    min-height: 100svh;
+
+    align-items: flex-end;
+
+    background-position: 65% center;
+  }
+
+  .hero-content {
+    padding-top: 140px;
+    padding-bottom: 60px;
+  }
+
+  .hero-name {
+    font-size: clamp(3rem, 14vw, 5rem);
+  }
+
+  .hero-role {
+    margin-top: 22px;
+
+    font-size: var(--text-base);
+  }
+
+  .hero-description {
+    max-width: 90%;
+
+    font-size: var(--text-sm);
+  }
+
+  .hero-actions {
+    width: 100%;
+
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+}
