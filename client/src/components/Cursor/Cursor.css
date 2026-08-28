@@ -1,0 +1,100 @@
+/* ----------------- CUSTOM CURSOR -------------- */
+
+.custom-cursor {
+  position: fixed;
+
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  box-shadow:
+    0 0 20px rgba(167, 139, 250, 0.08);
+
+  pointer-events: none;
+
+  transform: translate(-50%, -50%);
+
+  opacity: 0;
+
+  z-index: 9999;
+
+  transition:
+    width 250ms ease,
+    height 250ms ease,
+    background 250ms ease,
+    border-color 250ms ease,
+    box-shadow 250ms ease,
+    opacity 200ms ease;
+}
+
+
+/* ----------------- CURSOR DOT -------------- */
+
+.cursor-dot {
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: var(--color-accent-light);
+
+  box-shadow:
+    0 0 8px rgba(167, 139, 250, 0.5);
+}
+
+
+/* ----------------- CURSOR VISIBLE -------------- */
+
+.custom-cursor.visible {
+  opacity: 1;
+}
+
+
+/* ----------------- HOVER INTERACTION -------------- */
+
+body:has(a:hover) .custom-cursor,
+body:has(button:hover) .custom-cursor {
+  width: 44px;
+  height: 44px;
+
+  background: rgba(167, 139, 250, 0.06);
+
+  border-color: rgba(167, 139, 250, 0.35);
+
+  box-shadow:
+    0 0 25px rgba(167, 139, 250, 0.15);
+}
+
+
+/* ----------------- HIDE DEFAULT CURSOR -------------- */
+
+@media (min-width: 769px) {
+  body {
+    cursor: none;
+  }
+
+  a,
+  button {
+    cursor: none;
+  }
+}
+
+
+/* ----------------- MOBILE -------------- */
+
+@media (max-width: 768px) {
+  .custom-cursor {
+    display: none;
+  }
+}
