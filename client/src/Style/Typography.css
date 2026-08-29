@@ -156,6 +156,20 @@ a:hover {
 }
 
 
+:root.light-theme .gradient-text {
+  background: linear-gradient(
+    90deg,
+    #18181b 0%,
+    #7c3aed 70%,
+    #6d28d9 100%
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
 /* =========================================================
    TECHNICAL TEXT
    ========================================================= */
