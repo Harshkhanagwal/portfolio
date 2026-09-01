@@ -135,7 +135,7 @@ function Navbar() {
   return (
     <header className="navbar-wrapper">
 
-      <nav className="navbar">
+      <nav className="navbar glass">
 
         {/* =================================================
             LOGO

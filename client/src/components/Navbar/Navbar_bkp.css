@@ -38,15 +38,20 @@
 
   pointer-events: auto;
 
+  background: var(--glass-bg);
+
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-pill);
 
-  /*
-   * IMPORTANT:
-   * Background, border, blur and shadow are handled
-   * by the global .glass class from index.css.
-   */
+  backdrop-filter: blur(var(--blur-lg));
+  -webkit-backdrop-filter: blur(var(--blur-lg));
 
-  z-index: 1000;
+  box-shadow: var(--shadow-sm);
+
+  transition:
+    background var(--transition-normal),
+    border-color var(--transition-normal),
+    box-shadow var(--transition-normal);
 }
 
 
@@ -60,9 +65,7 @@
   color: var(--color-text-primary);
 
   font-family: var(--font-display);
-
   font-size: 17px;
-
   font-weight: var(--weight-semibold);
 
   letter-spacing: -0.04em;
@@ -71,9 +74,7 @@
 
   white-space: nowrap;
 
-  transition:
-    color var(--transition-normal),
-    transform var(--transition-normal);
+  transition: color var(--transition-normal);
 }
 
 
@@ -97,10 +98,6 @@
   margin-left: auto;
   margin-right: 28px;
 
-  /*
-   * Never give this container its own glass background.
-   */
-
   background: transparent;
 
   border: none;
@@ -123,9 +120,7 @@
   color: var(--color-text-muted);
 
   font-family: var(--font-body);
-
   font-size: 12px;
-
   font-weight: var(--weight-medium);
 
   text-decoration: none;
@@ -251,17 +246,6 @@
   cursor: pointer;
 
   flex-shrink: 0;
-
-  transition:
-    background var(--transition-normal),
-    border-color var(--transition-normal);
-}
-
-
-.navbar-menu:hover {
-  background: var(--accent-10);
-
-  border-color: var(--accent-30);
 }
 
 
@@ -401,7 +385,6 @@
     display: flex;
 
     flex-direction: column;
-
     align-items: stretch;
 
     gap: 3px;
@@ -411,20 +394,28 @@
     padding: 8px;
 
     /*
-     * The dropdown needs its own surface.
-     * Otherwise the page grid will show through.
+     * IMPORTANT:
+     * Solid theme background.
+     *
+     * This prevents the Hero image,
+     * grid and text from bleeding through.
      */
 
-    background: var(--glass-surface);
+    background: var(--color-bg);
 
     border: 1px solid var(--glass-border);
 
     border-radius: 18px;
 
-    box-shadow: var(--glass-shadow);
+    box-shadow: var(--shadow-md);
 
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    /*
+     * Keep a little glass effect,
+     * but the background itself stays opaque.
+     */
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
 
     opacity: 0;
 
@@ -476,7 +467,6 @@
     min-height: 46px;
 
     display: flex;
-
     align-items: center;
 
     padding: 0 15px;

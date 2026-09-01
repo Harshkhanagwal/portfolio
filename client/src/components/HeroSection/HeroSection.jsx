@@ -1,17 +1,56 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+
 import heroImage from "../../assets/heroimage.png";
-import './HeroSection.css'
+import heroImageLight from "../../assets/hero-light.png";
+
+import "./HeroSection.css";
 
 const HeroSection = () => {
+  const [lightTheme, setLightTheme] = useState(
+    document.documentElement.classList.contains("light-theme")
+  );
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setLightTheme(
+        document.documentElement.classList.contains("light-theme")
+      );
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const currentHeroImage = lightTheme
+    ? heroImageLight
+    : heroImage;
+
   return (
-    <section id="hero-section" class="hero-section" style={{ backgroundImage: `url(${heroImage})`, maxHeight: '100vh', minHeight: '100vh', backgroundPosition: 'right', backgroundSize:'cover', backgroundRepeat: "no-repeat"}} >
-        <div className="hero-content container">
-               <span className="hero-eyebrow">
+    <section
+      id="hero-section"
+      className="hero-section"
+      style={{
+        backgroundImage: `url(${currentHeroImage})`,
+      }}
+    >
+      <span className="overlay-white">
+
+      </span>
+      <div className="hero-content container">
+
+        <span className="hero-eyebrow">
           HELLO, I'M
         </span>
 
         <h1 className="hero-name">
-          HARSH <span className="gradient-text">KHANAGWAL</span>
+          HARSH{" "}
+          <span className="gradient-text">
+            KHANAGWAL
+          </span>
         </h1>
 
         <h2 className="hero-role">
@@ -49,9 +88,9 @@ const HeroSection = () => {
 
         </div>
 
-        </div>
+      </div>
     </section>
-  )
-}
+  );
+};
 
-export default HeroSection
+export default HeroSection;
