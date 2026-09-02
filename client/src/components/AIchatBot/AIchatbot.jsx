@@ -1,249 +1,371 @@
-import React, { useEffect, useState } from "react";
 import "./AIchatbot.css";
+import { useEffect, useRef, useState } from "react";
 
+const initialMessages = [
+  {
+    id: 1,
+    role: "assistant",
+    text:
+      "Hey — I’m Harsh’s AI Assistant. You can ask me about his projects, skills, experience, education, or what he’s currently building.",
+    suggestions: [
+      "What are Harsh's best projects?",
+      "What is his AI experience?",
+      "What technologies does he use?",
+    ],
+  },
+  {
+    id: 2,
+    role: "user",
+    text: "Tell me about his AI engineering experience.",
+  },
+  {
+    id: 3,
+    role: "assistant",
+    text:
+      "Harsh is building experience around Generative AI, LLM applications, RAG systems, and AI-powered product development alongside his full-stack background.",
+    suggestions: [
+      "Show me his AI projects",
+      "What does he know about RAG?",
+      "Tell me about his web skills",
+    ],
+  },
+];
 
-const AIAssistant = () => {
+function AssistantIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M7 18.5 4.5 20v-4.1A7.7 7.7 0 0 1 3 11.5C3 7.36 6.8 4 11.5 4S20 7.36 20 11.5 16.2 19 11.5 19c-1.65 0-3.19-.42-4.5-1.14" />
+      <path d="m17.5 2 .45 1.35L19.5 4l-1.55.65L17.5 6l-.45-1.35L15.5 4l1.55-.65L17.5 2Z" />
+      <circle cx="8.5" cy="11.5" r=".65" fill="currentColor" stroke="none" />
+      <circle cx="11.5" cy="11.5" r=".65" fill="currentColor" stroke="none" />
+      <circle cx="14.5" cy="11.5" r=".65" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function SendIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m22 2-7 20-4-9-9-4 20-7Z" />
+      <path d="M22 2 11 13" />
+    </svg>
+  );
+}
+
+export default function AIAssistant() {
   const [isOpen, setIsOpen] = useState(false);
+  const [inputValue, setInputValue] = useState("");
 
-  // Lock website scroll when chat is open
+  const dialogRef = useRef(null);
+  const messageAreaRef = useRef(null);
+  const inputRef = useRef(null);
+  const launcherRef = useRef(null);
+
+  const openAssistant = () => {
+    setIsOpen(true);
+  };
+
+  const closeAssistant = () => {
+    setIsOpen(false);
+  };
+
+  const handleSuggestion = (suggestion) => {
+    setInputValue(suggestion);
+
+    requestAnimationFrame(() => {
+      inputRef.current?.focus();
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // UI only for now.
+    // Actual message handling will be connected later.
+  };
+
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    if (!isOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const previousPaddingRight = document.body.style.paddingRight;
+
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.overflow = "hidden";
+
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
     }
 
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeAssistant();
+      }
+
+      if (event.key !== "Tab" || !dialogRef.current) return;
+
+      const focusableElements = dialogRef.current.querySelectorAll(
+        'button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+      );
+
+      if (!focusableElements.length) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement =
+        focusableElements[focusableElements.length - 1];
+
+      if (
+        event.shiftKey &&
+        document.activeElement === firstElement
+      ) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (
+        !event.shiftKey &&
+        document.activeElement === lastElement
+      ) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    requestAnimationFrame(() => {
+      inputRef.current?.focus();
+
+      if (messageAreaRef.current) {
+        messageAreaRef.current.scrollTop =
+          messageAreaRef.current.scrollHeight;
+      }
+    });
+
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
+      document.body.style.paddingRight = previousPaddingRight;
+
+      document.removeEventListener("keydown", handleKeyDown);
+
+      requestAnimationFrame(() => {
+        launcherRef.current?.focus();
+      });
     };
   }, [isOpen]);
 
   return (
     <>
-      {/* Floating AI Button */}
       {!isOpen && (
         <button
-          className="ai-floating-button"
-          onClick={() => setIsOpen(true)}
-          aria-label="Open AI Assistant"
+          ref={launcherRef}
+          className="ai-assistant-launcher"
+          type="button"
+          onClick={openAssistant}
+          aria-label="Open Harsh's AI Assistant"
         >
-          AI
+          <span className="ai-assistant-launcher__icon">
+            <AssistantIcon />
+          </span>
+
+          <span className="ai-assistant-launcher__label">
+            Harsh&apos;s AI
+          </span>
         </button>
       )}
 
-      {/* AI Chat Overlay */}
       {isOpen && (
-        <div className="ai-overlay">
+        <div
 
-          {/* Chat Window */}
-          <div className="ai-chat-window">
+          className="ai-assistant-overlay"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              closeAssistant();
+            }
+          }}
+        >
+          <dev
+            ref={dialogRef}
+            className="ai-assistant"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="ai-assistant-title"
+          >
+            <header className="ai-assistant__header">
+              <div
+                className="ai-assistant__window-controls"
+                aria-label="Window controls"
+              >
+                <button
+                  className="ai-assistant__window-control ai-assistant__window-control--red"
+                  type="button"
+                  onClick={closeAssistant}
+                  aria-label="Close AI Assistant"
+                />
 
-            {/* Header */}
-            <div className="ai-chat-header">
+                <button
+                  className="ai-assistant__window-control ai-assistant__window-control--yellow"
+                  type="button"
+                  aria-label="Minimize"
+                  disabled
+                />
 
-              <div className="ai-chat-identity">
-                <div className="ai-avatar">
-                  AI
-                </div>
+                <button
+                  className="ai-assistant__window-control ai-assistant__window-control--green"
+                  type="button"
+                  aria-label="Maximize"
+                  disabled
+                />
+              </div>
+
+              <div className="ai-assistant__identity">
+                <span
+                  className="ai-assistant__identity-icon"
+                  aria-hidden="true"
+                >
+                  <AssistantIcon />
+                </span>
 
                 <div>
-                  <h3>Harsh's AI Assistant</h3>
-                  <span>AI representation of my work</span>
-                </div>
-              </div>
+                  <h2
+                    id="ai-assistant-title"
+                    className="ai-assistant__title"
+                  >
+                    Harsh&apos;s AI Assistant
+                  </h2>
 
-              {/* Mac-style window controls */}
-              <div className="ai-window-controls">
-
-                <button
-                  className="window-control minimize"
-                  aria-label="Minimize"
-                />
-
-                <button
-                  className="window-control maximize"
-                  aria-label="Maximize"
-                />
-
-                <button
-                  className="window-control close"
-                  onClick={() => setIsOpen(false)}
-                  aria-label="Close"
-                />
-
-              </div>
-            </div>
-
-            <div className="ai-chat-messages">
-
-              {/* AI Message */}
-              <div className="ai-message ai-message-left">
-                <div className="ai-message-avatar">
-                  AI
-                </div>
-
-                <div className="ai-message-wrapper">
-
-                  <div className="ai-message-content">
-                    <p>
-                      Hi, I'm Harsh's AI Assistant.
-                    </p>
-
-                    <p>
-                      I can tell you about Harsh's projects,
-                      skills, experience, and background.
-                    </p>
+                  <div className="ai-assistant__status">
+                    <span
+                      className="ai-assistant__status-dot"
+                      aria-hidden="true"
+                    />
+                    <span>Portfolio assistant</span>
                   </div>
-
-                  {/* Related Questions */}
-                  <div className="ai-question-pills">
-                    <button>
-                      Tell me about his projects
-                    </button>
-
-                    <button>
-                      What are his skills?
-                    </button>
-
-                    <button>
-                      Tell me about his experience
-                    </button>
-                  </div>
-
                 </div>
               </div>
 
-
-              {/* User Message */}
-              <div className="ai-message ai-message-right">
-
-                <div className="ai-message-content">
-                  <p>
-                    What kind of AI projects has Harsh built?
-                  </p>
-                </div>
-
-              </div>
-
-
-              {/* AI Message */}
-              <div className="ai-message ai-message-left">
-
-                <div className="ai-message-avatar">
-                  AI
-                </div>
-
-                <div className="ai-message-wrapper">
-
-                  <div className="ai-message-content">
-                    <p>
-                      Harsh has worked on several AI-powered
-                      applications using Generative AI.
-                    </p>
-
-                    <p>
-                      One of his major projects is Next Move Prep,
-                      an AI-powered interview preparation platform
-                      that uses Gemini to analyze resumes and
-                      job descriptions.
-                    </p>
-                  </div>
-
-                  {/* Related Questions */}
-                  <div className="ai-question-pills">
-
-                    <button>
-                      Tell me about Next Move Prep
-                    </button>
-
-                    <button>
-                      What AI technologies does he use?
-                    </button>
-
-                    <button>
-                      Show me his other AI projects
-                    </button>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              {/* User Message */}
-              <div className="ai-message ai-message-right">
-
-                <div className="ai-message-content">
-                  <p>
-                    What technologies does he usually work with?
-                  </p>
-                </div>
-
-              </div>
-
-
-              {/* AI Message */}
-              <div className="ai-message ai-message-left">
-
-                <div className="ai-message-avatar">
-                  AI
-                </div>
-
-                <div className="ai-message-wrapper">
-
-                  <div className="ai-message-content">
-                    <p>
-                      His main stack includes React, Node.js,
-                      Express, MongoDB, Redux Toolkit and
-                      Generative AI technologies.
-                    </p>
-                  </div>
-
-                  {/* Related Questions */}
-                  <div className="ai-question-pills">
-
-                    <button>
-                      What is his strongest skill?
-                    </button>
-
-                    <button>
-                      Tell me about his GenAI knowledge
-                    </button>
-
-                    <button>
-                      Which project uses this stack?
-                    </button>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-            {/* Input */}
-            <div className="ai-chat-input">
-
-              <input
-                type="text"
-                placeholder="Ask me something..."
+              <div
+                className="ai-assistant__header-spacer"
+                aria-hidden="true"
               />
+            </header>
 
-              <button
-                className="ai-send-button"
-                aria-label="Send message"
-              >
-                →
-              </button>
+            <div
+              ref={messageAreaRef}
+              className="ai-assistant__messages"
+            >
+              <div className="ai-assistant__intro">
+                <span className="eyebrow">
+                  AI / PORTFOLIO
+                </span>
 
+                <h3>Ask about Harsh.</h3>
+
+                <p>
+                  Explore projects, experience, skills, education,
+                  and AI work through the assistant.
+                </p>
+              </div>
+
+              <div className="ai-assistant__conversation">
+                {initialMessages.map((message) => (
+                  <article
+                    key={message.id}
+                    className={`ai-message ai-message--${message.role}`}
+                  >
+                    <div className="ai-message__meta">
+                      {message.role === "assistant"
+                        ? "HARSH_AI"
+                        : "YOU"}
+                    </div>
+
+                    <div className="ai-message__bubble">
+                      {message.text}
+                    </div>
+
+                    {message.suggestions?.length > 0 && (
+                      <div
+                        className="ai-message__suggestions"
+                        aria-label="Related questions"
+                      >
+                        {message.suggestions.map((suggestion) => (
+                          <button
+                            key={suggestion}
+                            className="ai-message__suggestion"
+                            type="button"
+                            onClick={() =>
+                              handleSuggestion(suggestion)
+                            }
+                          >
+                            {suggestion}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </article>
+                ))}
+              </div>
             </div>
 
-          </div>
+            <footer className="ai-assistant__footer">
+              <form
+                className="ai-assistant__composer"
+                onSubmit={handleSubmit}
+              >
+                <label
+                  className="ai-assistant__input-label"
+                  htmlFor="ai-assistant-input"
+                >
+                  Ask Harsh&apos;s AI Assistant
+                </label>
+
+                <div className="ai-assistant__input-shell">
+                  <input
+                    ref={inputRef}
+                    id="ai-assistant-input"
+                    type="text"
+                    value={inputValue}
+                    onChange={(event) =>
+                      setInputValue(event.target.value)
+                    }
+                    placeholder="Ask about projects, skills, experience..."
+                    autoComplete="off"
+                  />
+
+                  <button
+                    className="ai-assistant__send"
+                    type="submit"
+                    aria-label="Send message"
+                  >
+                    <SendIcon />
+                  </button>
+                </div>
+              </form>
+
+              <p className="ai-assistant__disclaimer">
+                Portfolio assistant · UI preview
+              </p>
+            </footer>
+          </dev>
         </div>
       )}
     </>
   );
-};
-
-export default AIAssistant;
+}
