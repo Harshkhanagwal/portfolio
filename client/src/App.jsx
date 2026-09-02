@@ -17,6 +17,7 @@ import Projects from './components/ProjectsSection/ProjectsSection'
 import Personal from './components/Personal/Personal'
 import Contact from './components/ContactSection/ContactSection'
 import Footer from './components/Footer/Footer'
+import AIAssistant from './components/AIchatBot/AIchatbot'
 
 function App() {
 
@@ -30,6 +31,8 @@ function App() {
       <Personal/>
       <Experience/>
       <Contact/>
+
+      <AIAssistant/>
       <Footer/>
       <Cursor/>
     </>
