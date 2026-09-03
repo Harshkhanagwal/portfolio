@@ -26,7 +26,7 @@ function App() {
   return (
 
     <>
-      <SmoothScroll />
+      {/* <SmoothScroll /> */}
       <Navbar />
       <HeroSection />
       <AboutSection />
@@ -36,7 +36,7 @@ function App() {
       <Experience />
       <Contact />
 
-      <AIAssistant />
+      {/* <AIAssistant /> */}
       <Footer />
       <Cursor />
     </>
