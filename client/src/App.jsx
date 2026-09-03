@@ -18,23 +18,27 @@ import Personal from './components/Personal/Personal'
 import Contact from './components/ContactSection/ContactSection'
 import Footer from './components/Footer/Footer'
 import AIAssistant from './components/AIchatBot/AIchatbot'
+import SmoothScroll from './components/elements/SmoothScroll'
 
 function App() {
 
-  return (
-    <>
-      <Navbar/>
-      <HeroSection/>
-      <AboutSection/>
-      <Skill2/>
-      <Projects/>
-      <Personal/>
-      <Experience/>
-      <Contact/>
 
-      <AIAssistant/>
-      <Footer/>
-      <Cursor/>
+  return (
+
+    <>
+      <SmoothScroll />
+      <Navbar />
+      <HeroSection />
+      <AboutSection />
+      <Skill2 />
+      <Projects />
+      <Personal />
+      <Experience />
+      <Contact />
+
+      <AIAssistant />
+      <Footer />
+      <Cursor />
     </>
   )
 }

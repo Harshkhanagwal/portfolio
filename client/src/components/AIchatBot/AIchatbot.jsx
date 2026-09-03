@@ -100,75 +100,88 @@ export default function AIAssistant() {
     // Actual message handling will be connected later.
   };
 
-  useEffect(() => {
-    if (!isOpen) return undefined;
+ useEffect(() => {
+  if (!isOpen) {
+    window.__lenis?.start();
+    return;
+  }
 
-    const previousOverflow = document.body.style.overflow;
-    const previousPaddingRight = document.body.style.paddingRight;
+  const previousOverflow = document.body.style.overflow;
+  const previousPaddingRight = document.body.style.paddingRight;
 
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
+  const scrollbarWidth =
+    window.innerWidth - document.documentElement.clientWidth;
 
-    document.body.style.overflow = "hidden";
+  // Stop Lenis from controlling the page.
+  window.__lenis?.stop();
 
-    if (scrollbarWidth > 0) {
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
+  // Lock normal body scrolling.
+  document.body.style.overflow = "hidden";
+
+  if (scrollbarWidth > 0) {
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+  }
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      closeAssistant();
     }
 
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        closeAssistant();
-      }
+    if (event.key !== "Tab" || !dialogRef.current) {
+      return;
+    }
 
-      if (event.key !== "Tab" || !dialogRef.current) return;
-
-      const focusableElements = dialogRef.current.querySelectorAll(
+    const focusableElements =
+      dialogRef.current.querySelectorAll(
         'button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
       );
 
-      if (!focusableElements.length) return;
+    if (!focusableElements.length) return;
 
-      const firstElement = focusableElements[0];
-      const lastElement =
-        focusableElements[focusableElements.length - 1];
+    const firstElement = focusableElements[0];
+    const lastElement =
+      focusableElements[focusableElements.length - 1];
 
-      if (
-        event.shiftKey &&
-        document.activeElement === firstElement
-      ) {
-        event.preventDefault();
-        lastElement.focus();
-      } else if (
-        !event.shiftKey &&
-        document.activeElement === lastElement
-      ) {
-        event.preventDefault();
-        firstElement.focus();
-      }
-    };
+    if (
+      event.shiftKey &&
+      document.activeElement === firstElement
+    ) {
+      event.preventDefault();
+      lastElement.focus();
+    } else if (
+      !event.shiftKey &&
+      document.activeElement === lastElement
+    ) {
+      event.preventDefault();
+      firstElement.focus();
+    }
+  };
 
-    document.addEventListener("keydown", handleKeyDown);
+  document.addEventListener("keydown", handleKeyDown);
+
+  requestAnimationFrame(() => {
+    inputRef.current?.focus();
+
+    if (messageAreaRef.current) {
+      messageAreaRef.current.scrollTop =
+        messageAreaRef.current.scrollHeight;
+    }
+  });
+
+  return () => {
+    document.body.style.overflow = previousOverflow;
+    document.body.style.paddingRight = previousPaddingRight;
+
+    document.removeEventListener("keydown", handleKeyDown);
+
+    // Resume smooth portfolio scrolling.
+    window.__lenis?.start();
 
     requestAnimationFrame(() => {
-      inputRef.current?.focus();
-
-      if (messageAreaRef.current) {
-        messageAreaRef.current.scrollTop =
-          messageAreaRef.current.scrollHeight;
-      }
+      launcherRef.current?.focus();
     });
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      document.body.style.paddingRight = previousPaddingRight;
-
-      document.removeEventListener("keydown", handleKeyDown);
-
-      requestAnimationFrame(() => {
-        launcherRef.current?.focus();
-      });
-    };
-  }, [isOpen]);
+  };
+}, [isOpen]);
 
   return (
     <>

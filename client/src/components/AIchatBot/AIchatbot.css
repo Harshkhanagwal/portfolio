@@ -377,6 +377,17 @@
 }
 
 
+.ai-assistant__messages {
+  min-height: 0;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
 .ai-assistant__messages::-webkit-scrollbar {
   width: 6px;
 }
