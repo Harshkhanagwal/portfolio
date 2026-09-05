@@ -6,24 +6,28 @@ export default function SmoothScroll() {
     const lenis = new Lenis({
       duration: 1.1,
       smoothWheel: true,
-      syncTouch: false,
       wheelMultiplier: 1,
       touchMultiplier: 1,
+      syncTouch: false,
+
+      prevent: (node) => {
+        return node.closest(".ai-assistant__messages") !== null;
+      },
     });
 
     window.__lenis = lenis;
 
-    let animationFrame;
+    let rafId;
 
     const raf = (time) => {
       lenis.raf(time);
-      animationFrame = requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     };
 
-    animationFrame = requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
-      cancelAnimationFrame(animationFrame);
+      cancelAnimationFrame(rafId);
       delete window.__lenis;
       lenis.destroy();
     };
