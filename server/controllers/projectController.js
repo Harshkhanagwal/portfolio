@@ -2,7 +2,7 @@ const Project = require("../models/Project");
 
 /* -------------------- GET ALL PROJECTS -------------------- */
 
-export const getProjects = async (req, res, next) => {
+const getProjects = async (req, res, next) => {
   try {
     const projects = await Project.find().sort({
       order: 1,
@@ -21,7 +21,7 @@ export const getProjects = async (req, res, next) => {
 
 /* -------------------- GET SINGLE PROJECT -------------------- */
 
-export const getProject = async (req, res, next) => {
+const getProject = async (req, res, next) => {
   try {
     const project = await Project.findById(req.params.id);
 
@@ -43,7 +43,7 @@ export const getProject = async (req, res, next) => {
 
 /* -------------------- CREATE PROJECT -------------------- */
 
-export const createProject = async (req, res, next) => {
+const createProject = async (req, res, next) => {
   try {
     const project = await Project.create(req.body);
 
@@ -59,7 +59,7 @@ export const createProject = async (req, res, next) => {
 
 /* -------------------- UPDATE PROJECT -------------------- */
 
-export const updateProject = async (req, res, next) => {
+const updateProject = async (req, res, next) => {
   try {
     const project = await Project.findByIdAndUpdate(
       req.params.id,
@@ -89,7 +89,7 @@ export const updateProject = async (req, res, next) => {
 
 /* -------------------- DELETE PROJECT -------------------- */
 
-export const deleteProject = async (req, res, next) => {
+const deleteProject = async (req, res, next) => {
   try {
     const project = await Project.findByIdAndDelete(req.params.id);
 
@@ -107,4 +107,12 @@ export const deleteProject = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+module.exports = {
+  getProjects,
+  getProject,
+  createProject,
+  updateProject,
+  deleteProject,
 };

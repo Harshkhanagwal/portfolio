@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const projectSchema = new mongoose.Schema(
   {
@@ -8,15 +8,13 @@ const projectSchema = new mongoose.Schema(
       trim: true,
     },
 
-    slug: {
+    subtitle: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
-      lowercase: true,
     },
 
-    shortDescription: {
+    category: {
       type: String,
       required: true,
       trim: true,
@@ -24,24 +22,18 @@ const projectSchema = new mongoose.Schema(
 
     description: {
       type: String,
+      required: true,
       trim: true,
-      default: "",
+    },
+
+    highlights: {
+      type: [String],
+      default: [],
     },
 
     technologies: {
       type: [String],
       default: [],
-    },
-
-    image: {
-      type: String,
-      default: "",
-    },
-
-    githubUrl: {
-      type: String,
-      default: "",
-      trim: true,
     },
 
     liveUrl: {
@@ -50,15 +42,21 @@ const projectSchema = new mongoose.Schema(
       trim: true,
     },
 
+    githubUrl: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    image: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
     featured: {
       type: Boolean,
       default: false,
-    },
-
-    status: {
-      type: String,
-      enum: ["completed", "in-progress", "planned"],
-      default: "completed",
     },
 
     order: {
@@ -73,4 +71,4 @@ const projectSchema = new mongoose.Schema(
 
 const Project = mongoose.model("Project", projectSchema);
 
-export default Project;
+module.exports = Project;

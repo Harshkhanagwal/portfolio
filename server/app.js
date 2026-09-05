@@ -2,9 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
-const projectRoutes = require("./routes/projectRoutes");
 const authRoutes = require("./routes/authRoutes");
-
+const projectRoutes = require("./routes/projectRoutes");
 
 const app = express();
 
@@ -32,8 +31,8 @@ app.get("/api/health", (req, res) => {
 
 /* -------------------- ROUTES -------------------- */
 
-app.use("/api/projects", projectRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/projects", projectRoutes);
 
 /* -------------------- 404 -------------------- */
 
