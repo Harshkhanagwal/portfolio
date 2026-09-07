@@ -8,6 +8,7 @@ import {
 } from "../../services/projectService";
 
 import "./Projects.css";
+import "../../common/AdminCommon.css";
 
 const initialForm = {
   title: "",
@@ -26,17 +27,11 @@ const initialForm = {
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [error, setError] = useState("");
-
   const [showForm, setShowForm] = useState(false);
-
   const [form, setForm] = useState(initialForm);
-
   const [saving, setSaving] = useState(false);
-
   const [editingId, setEditingId] = useState(null);
-
   const [deletingId, setDeletingId] = useState(null);
 
   useEffect(() => {
@@ -107,17 +102,14 @@ function Projects() {
       subtitle: project.subtitle || "",
       category: project.category || "",
       description: project.description || "",
-
       highlights:
         project.highlights?.length > 0
           ? project.highlights
           : [""],
-
       technologies:
         project.technologies?.length > 0
           ? project.technologies
           : [""],
-
       liveUrl: project.liveUrl || "",
       githubUrl: project.githubUrl || "",
       image: project.image || "",
@@ -219,13 +211,13 @@ function Projects() {
   };
 
   return (
-    <div className="admin-projects">
+    <div className="admin-page">
 
       {/* Header */}
 
-      <div className="admin-projects__header">
+      <div className="admin-page__header">
         <div>
-          <span className="admin-projects__eyebrow">
+          <span className="admin-page__eyebrow">
             CONTENT / 01
           </span>
 
@@ -238,7 +230,7 @@ function Projects() {
 
         <button
           type="button"
-          className="admin-projects__add-button"
+          className="admin-button admin-button--add"
           onClick={openCreateForm}
         >
           <span>+</span>
@@ -249,7 +241,7 @@ function Projects() {
       {/* Error */}
 
       {error && (
-        <div className="admin-projects__error">
+        <div className="admin-error">
           {error}
         </div>
       )}
@@ -257,12 +249,12 @@ function Projects() {
       {/* Form */}
 
       {showForm && (
-        <div className="admin-projects__form-card">
+        <div className="admin-card">
 
-          <div className="admin-projects__form-header">
+          <div className="admin-card__header">
 
             <div>
-              <span className="admin-projects__eyebrow">
+              <span className="admin-page__eyebrow">
                 PROJECT / {editingId ? "EDIT" : "CREATE"}
               </span>
 
@@ -275,7 +267,7 @@ function Projects() {
 
             <button
               type="button"
-              className="admin-projects__close"
+              className="admin-button admin-button--close"
               onClick={handleCancel}
             >
               ×
@@ -284,15 +276,15 @@ function Projects() {
           </div>
 
           <form
-            className="admin-projects__form"
+            className="admin-form"
             onSubmit={handleSubmit}
           >
 
-            <div className="admin-projects__form-grid">
+            <div className="admin-form__grid">
 
               {/* Title */}
 
-              <div className="admin-projects__field">
+              <div className="admin-form__field">
                 <label htmlFor="title">
                   Title
                 </label>
@@ -310,7 +302,7 @@ function Projects() {
 
               {/* Subtitle */}
 
-              <div className="admin-projects__field">
+              <div className="admin-form__field">
                 <label htmlFor="subtitle">
                   Subtitle
                 </label>
@@ -328,7 +320,7 @@ function Projects() {
 
               {/* Category */}
 
-              <div className="admin-projects__field">
+              <div className="admin-form__field">
                 <label htmlFor="category">
                   Category
                 </label>
@@ -346,7 +338,7 @@ function Projects() {
 
               {/* Order */}
 
-              <div className="admin-projects__field">
+              <div className="admin-form__field">
                 <label htmlFor="order">
                   Display Order
                 </label>
@@ -362,7 +354,7 @@ function Projects() {
 
               {/* Description */}
 
-              <div className="admin-projects__field admin-projects__field--full">
+              <div className="admin-form__field admin-form__field--full">
                 <label htmlFor="description">
                   Description
                 </label>
@@ -380,9 +372,9 @@ function Projects() {
 
               {/* Highlights */}
 
-              <div className="admin-projects__field admin-projects__field--full">
+              <div className="admin-form__field admin-form__field--full">
 
-                <div className="admin-projects__array-header">
+                <div className="admin-array__header">
                   <label>
                     Highlights
                   </label>
@@ -397,12 +389,12 @@ function Projects() {
                   </button>
                 </div>
 
-                <div className="admin-projects__array-list">
+                <div className="admin-array__list">
 
                   {form.highlights.map(
                     (highlight, index) => (
                       <div
-                        className="admin-projects__array-item"
+                        className="admin-array__item"
                         key={index}
                       >
 
@@ -442,9 +434,9 @@ function Projects() {
 
               {/* Technologies */}
 
-              <div className="admin-projects__field admin-projects__field--full">
+              <div className="admin-form__field admin-form__field--full">
 
-                <div className="admin-projects__array-header">
+                <div className="admin-array__header">
                   <label>
                     Technologies
                   </label>
@@ -459,12 +451,12 @@ function Projects() {
                   </button>
                 </div>
 
-                <div className="admin-projects__array-list">
+                <div className="admin-array__list">
 
                   {form.technologies.map(
                     (technology, index) => (
                       <div
-                        className="admin-projects__array-item"
+                        className="admin-array__item"
                         key={index}
                       >
 
@@ -504,7 +496,7 @@ function Projects() {
 
               {/* Live URL */}
 
-              <div className="admin-projects__field">
+              <div className="admin-form__field">
                 <label htmlFor="liveUrl">
                   Live URL
                 </label>
@@ -521,7 +513,7 @@ function Projects() {
 
               {/* GitHub URL */}
 
-              <div className="admin-projects__field">
+              <div className="admin-form__field">
                 <label htmlFor="githubUrl">
                   GitHub URL
                 </label>
@@ -538,7 +530,7 @@ function Projects() {
 
               {/* Image */}
 
-              <div className="admin-projects__field admin-projects__field--full">
+              <div className="admin-form__field admin-form__field--full">
                 <label htmlFor="image">
                   Image URL
                 </label>
@@ -555,7 +547,7 @@ function Projects() {
 
               {/* Featured */}
 
-              <label className="admin-projects__checkbox">
+              <label className="admin-checkbox">
 
                 <input
                   name="featured"
@@ -574,11 +566,11 @@ function Projects() {
 
             {/* Form actions */}
 
-            <div className="admin-projects__form-actions">
+            <div className="admin-form__actions">
 
               <button
                 type="button"
-                className="admin-projects__cancel"
+                className="admin-button admin-button--cancel"
                 onClick={handleCancel}
               >
                 Cancel
@@ -586,7 +578,7 @@ function Projects() {
 
               <button
                 type="submit"
-                className="admin-projects__save"
+                className="admin-button admin-button--save"
                 disabled={saving}
               >
                 {saving
@@ -604,9 +596,9 @@ function Projects() {
 
       {/* Projects table */}
 
-      <div className="admin-projects__table-wrapper">
+      <div className="admin-table">
 
-        <div className="admin-projects__table-header">
+        <div className="admin-table__header admin-table__header--projects">
           <span>PROJECT</span>
           <span>CATEGORY</span>
           <span>FEATURED</span>
@@ -615,17 +607,17 @@ function Projects() {
         </div>
 
         {loading ? (
-          <div className="admin-projects__empty">
+          <div className="admin-empty">
             <span>LOADING PROJECTS...</span>
           </div>
         ) : projects.length === 0 ? (
-          <div className="admin-projects__empty">
+          <div className="admin-empty">
 
-            <span className="admin-projects__empty-number">
+            <span className="admin-empty__number">
               00
             </span>
 
-            <div>
+            <div className="admin-empty__content">
               <h2>No projects yet</h2>
 
               <p>
@@ -640,7 +632,7 @@ function Projects() {
 
             {projects.map((project) => (
               <div
-                className="admin-projects__row"
+                className="admin-table__row admin-table__row--projects"
                 key={project._id}
               >
 
@@ -668,10 +660,11 @@ function Projects() {
                   {project.order}
                 </span>
 
-                <div className="admin-projects__actions">
+                <div className="admin-table__actions">
 
                   <button
                     type="button"
+                    className="admin-button admin-button--edit"
                     onClick={() =>
                       openEditForm(project)
                     }
@@ -681,6 +674,7 @@ function Projects() {
 
                   <button
                     type="button"
+                    className="admin-button admin-button--danger"
                     onClick={() =>
                       handleDelete(project._id)
                     }

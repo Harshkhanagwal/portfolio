@@ -8,6 +8,8 @@ import AdminLayout from "./components/layout/AdminLayout";
 
 import Dashboard from "./components/pages/Dashboard/Dashboard";
 import Projects from "./components/pages/Projects/Project";
+import Experience from "./components/pages/Experience/Experience";
+
 function AdminApp() {
   return (
     <Routes>
@@ -20,6 +22,7 @@ function AdminApp() {
             element={<Dashboard/>}
           />
           <Route path="projects" element={<Projects />} />
+          <Route path="experience" element={<Experience />} />
         </Route>
       </Route>
     </Routes>
