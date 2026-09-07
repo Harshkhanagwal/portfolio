@@ -1,0 +1,85 @@
+/* =========================================================
+   PROJECT TABLE
+========================================================= */
+
+.admin-table__header--projects,
+.admin-table__row--projects {
+  grid-template-columns:
+    minmax(260px, 2fr)
+    120px
+    100px
+    70px
+    140px;
+}
+
+
+/* =========================================================
+   PROJECT INFORMATION
+========================================================= */
+
+.admin-projects__project {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.admin-projects__project strong {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+
+  color: var(--color-text-primary);
+}
+
+.admin-projects__project span {
+  overflow: hidden;
+
+  max-width: 420px;
+
+  font-family: var(--font-body);
+  font-size: 11px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: var(--color-text-muted);
+}
+
+
+/* =========================================================
+   PROJECT TABLE DATA
+========================================================= */
+
+.admin-projects__status,
+.admin-projects__featured,
+.admin-projects__order {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+
+  color: var(--color-text-secondary);
+}
+
+.admin-projects__status--completed {
+  color: var(--color-text-primary);
+}
+
+.admin-projects__status--in-progress {
+  color: var(--color-accent);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .admin-table {
+    overflow-x: auto;
+  }
+
+  .admin-table__header--projects,
+  .admin-table__row--projects {
+    min-width: 820px;
+  }
+}

@@ -1,0 +1,170 @@
+/* =========================================================
+
+   EXPERIENCE
+
+========================================================= */
+
+.admin-experience__count {
+
+  display: block;
+
+  margin-top: 16px;
+
+  font-family: var(--font-mono);
+
+  font-size: 9px;
+
+  letter-spacing: 0.08em;
+
+  color: var(--color-text-muted);
+
+}
+
+
+/* =========================================================
+
+   FORM HINT
+
+========================================================= */
+
+.admin-experience__hint {
+
+  font-family: var(--font-mono);
+
+  font-size: 8px;
+
+  color: var(--color-text-muted);
+
+}
+
+
+/* =========================================================
+
+   EXPERIENCE TABLE
+
+========================================================= */
+
+.admin-table__header--experience,
+
+.admin-table__row--experience {
+
+  grid-template-columns:
+
+    minmax(260px, 2fr)
+
+    120px
+
+    160px
+
+    120px
+
+    140px;
+
+}
+
+
+/* =========================================================
+
+   EXPERIENCE INFORMATION
+
+========================================================= */
+
+.admin-experience__experience {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+
+  min-width: 0;
+
+}
+
+.admin-experience__experience strong {
+
+  overflow: hidden;
+
+  font-family: var(--font-display);
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  color: var(--color-text-primary);
+
+}
+
+.admin-experience__experience span {
+
+  overflow: hidden;
+
+  max-width: 420px;
+
+  font-family: var(--font-body);
+
+  font-size: 11px;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  color: var(--color-text-muted);
+
+}
+
+
+/* =========================================================
+
+   EXPERIENCE TABLE TEXT
+
+========================================================= */
+
+.admin-experience__text {
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  font-family: var(--font-mono);
+
+  font-size: 9px;
+
+  letter-spacing: 0.05em;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  color: var(--color-text-secondary);
+
+}
+
+
+/* =========================================================
+
+   RESPONSIVE
+
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .admin-table {
+
+    overflow-x: auto;
+
+  }
+
+  .admin-table__header--experience,
+
+  .admin-table__row--experience {
+
+    min-width: 800px;
+
+  }
+
+}
