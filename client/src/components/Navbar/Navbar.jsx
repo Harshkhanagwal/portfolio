@@ -184,20 +184,7 @@ function Navbar() {
             Skills
           </a>
 
-          <a
-            href="#experience"
-            className={
-              activeSection === "experience"
-                ? "active"
-                : ""
-            }
-            onClick={() =>
-              handleNavigation("experience")
-            }
-          >
-            Experience
-          </a>
-
+     
           <a
             href="#projects"
             className={
@@ -211,6 +198,21 @@ function Navbar() {
           >
             Projects
           </a>
+
+     <a
+            href="#experience"
+            className={
+              activeSection === "experience"
+                ? "active"
+                : ""
+            }
+            onClick={() =>
+              handleNavigation("experience")
+            }
+          >
+            Experience
+          </a>
+
 
           <a
             href="#contact"
