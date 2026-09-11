@@ -5,6 +5,9 @@ const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/authRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const experienceRoutes = require("./routes/experienceRoutes");
+const skillRoutes = require("./routes/skillRoutes");
+const overviewRoutes = require("./routes/overviewRoutes");
+
 
 const app = express();
 
@@ -35,7 +38,9 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/experience", experienceRoutes);
-
+app.use("/api/skills", skillRoutes);
+app.use("/api/admin/overview", overviewRoutes);
+  
 /* -------------------- 404 -------------------- */
 
 app.use((req, res) => {

@@ -9,6 +9,7 @@ import AdminLayout from "./components/layout/AdminLayout";
 import Dashboard from "./components/pages/Dashboard/Dashboard";
 import Projects from "./components/pages/Projects/Project";
 import Experience from "./components/pages/Experience/Experience";
+import Skills from "./components/pages/Skills/Skills";
 
 function AdminApp() {
   return (
@@ -23,6 +24,7 @@ function AdminApp() {
           />
           <Route path="projects" element={<Projects />} />
           <Route path="experience" element={<Experience />} />
+          <Route path="skills" element={<Skills />} />
         </Route>
       </Route>
     </Routes>

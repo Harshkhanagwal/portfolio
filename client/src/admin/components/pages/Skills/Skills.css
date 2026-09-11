@@ -1,0 +1,161 @@
+/* =========================================================
+   SKILLS PAGE
+========================================================= */
+
+.admin-skills {
+  width: 100%;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.admin-skills__form-card {
+  margin-bottom: 32px;
+}
+
+.admin-skills__form-eyebrow {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+
+  color: var(--color-text-muted);
+}
+
+.admin-skills__hint {
+  font-family: var(--font-mono);
+  font-size: 8px;
+
+  color: var(--color-text-muted);
+}
+
+
+/* =========================================================
+   LIST
+========================================================= */
+
+.admin-skills__list {
+  width: 100%;
+}
+
+.admin-skills__list-header {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 14px;
+}
+
+.admin-skills__count {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+
+  color: var(--color-text-muted);
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.admin-skills__table {
+  width: 100%;
+}
+
+.admin-skills__table-header,
+.admin-skills__row {
+  grid-template-columns:
+    minmax(180px, 1.3fr)
+    140px
+    minmax(260px, 2fr)
+    140px;
+}
+
+
+/* =========================================================
+   SKILL CELL
+========================================================= */
+
+.admin-skills__skill {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  min-width: 0;
+}
+
+.admin-skills__skill strong {
+  overflow: hidden;
+
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: var(--color-text-primary);
+}
+
+.admin-skills__skill span {
+  font-family: var(--font-body);
+  font-size: 10px;
+
+  color: var(--color-text-muted);
+}
+
+
+/* =========================================================
+   LEVEL
+========================================================= */
+
+.admin-skills__level {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+
+  color: var(--color-accent);
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.admin-skills__description {
+  min-width: 0;
+
+  overflow: hidden;
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  line-height: 1.5;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: var(--color-text-secondary);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .admin-skills__table {
+    overflow-x: auto;
+  }
+
+  .admin-skills__table-header,
+  .admin-skills__row {
+    min-width: 820px;
+  }
+
+}
