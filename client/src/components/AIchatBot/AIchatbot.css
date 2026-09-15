@@ -782,6 +782,14 @@
 
 @media (max-width: 768px) {
 
+  .ai-message-text {
+  overflow-x: auto;
+}
+
+.ai-message-text table {
+  min-width: 500px;
+}
+
   .ai-assistant-overlay {
     padding: 18px;
   }
@@ -830,6 +838,8 @@
    ========================================================= */
 
 @media (max-width: 520px) {
+
+  
 
   .ai-assistant-launcher {
     right: 16px;
@@ -982,4 +992,85 @@
     transition: none;
   }
 
+}
+
+
+
+.ai-message-text table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+}
+
+.ai-message-text th,
+.ai-message-text td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ai-message-text th {
+  font-weight: 600;
+}
+
+
+.ai-message__bubble {
+  line-height: 1.6;
+}
+
+/* Paragraphs */
+.ai-message__bubble p {
+  margin: 0 0 12px;
+}
+
+.ai-message__bubble p:last-child {
+  margin-bottom: 0;
+}
+
+/* Bold */
+.ai-message__bubble strong {
+  font-weight: 700;
+}
+
+/* Lists */
+.ai-message__bubble ul,
+.ai-message__bubble ol {
+  margin: 8px 0 12px;
+  padding-left: 24px;
+}
+
+.ai-message__bubble li {
+  margin-bottom: 6px;
+}
+
+.ai-message__bubble li:last-child {
+  margin-bottom: 0;
+}
+
+/* Tables */
+.ai-message__bubble table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 14px;
+}
+
+.ai-message__bubble th,
+.ai-message__bubble td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ai-message__bubble th {
+  font-weight: 600;
+}
+
+/* Mobile / narrow chat */
+.ai-message__bubble {
+  overflow-x: auto;
+}
+
+.ai-message__bubble table {
+  min-width: 480px;
 }
