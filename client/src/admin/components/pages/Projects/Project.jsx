@@ -8,7 +8,7 @@ import {
 } from "../../services/projectService";
 
 import "./Projects.css";
-import "../../common/AdminCommon.css";
+import "../../Common/AdminCommon.css";
 
 const initialForm = {
   title: "",

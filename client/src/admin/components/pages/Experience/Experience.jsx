@@ -8,7 +8,7 @@ import {
 } from "../../services/experienceService";
 
 import "./Experience.css";
-import "../../common/AdminCommon.css";
+import "../../Common/AdminCommon.css";
 
 const initialForm = {
   role: "",
