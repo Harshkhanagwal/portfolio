@@ -3,6 +3,7 @@ const express = require("express");
 const Project = require("../models/Project");
 const Skill = require("../models/Skill");
 const Experience = require("../models/Experience");
+const AIKnowledge = require("../models/AIKnowledge");
 
 const protect = require("../middleware/authMiddleware");
 
@@ -10,18 +11,20 @@ const router = express.Router();
 
 /* =========================================================
    ADMIN OVERVIEW
-   ========================================================= */
+========================================================= */
 
-router.get("/", async (req, res) => {
+router.get("/", protect, async (req, res) => {
   try {
     const [
       projects,
       skills,
       experience,
+      aiKnowledge,
     ] = await Promise.all([
       Project.countDocuments(),
       Skill.countDocuments(),
       Experience.countDocuments(),
+      AIKnowledge.countDocuments(),
     ]);
 
     res.status(200).json({
@@ -31,7 +34,7 @@ router.get("/", async (req, res) => {
         projects,
         skills,
         experience,
-        aiKnowledge: 0,
+        aiKnowledge,
       },
     });
   } catch (error) {

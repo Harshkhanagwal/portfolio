@@ -1,0 +1,224 @@
+.admin-education {
+  width: 100%;
+}
+
+/* =========================================
+   FORM
+========================================= */
+
+.admin-education__form-card {
+  margin-bottom: 32px;
+}
+
+.admin-education__form-eyebrow {
+  display: block;
+  margin-bottom: 7px;
+
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+
+  color: var(--color-text-muted);
+}
+
+.admin-education__hint {
+  font-family: var(--font-mono);
+  font-size: 8px;
+
+  color: var(--color-text-muted);
+}
+
+/* =========================================
+   LIST
+========================================= */
+
+.admin-education__list {
+  width: 100%;
+}
+
+.admin-education__list-header {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 14px;
+}
+
+.admin-education__count {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+
+  color: var(--color-text-muted);
+}
+
+/* =========================================
+   TABLE
+========================================= */
+
+.admin-education__table {
+  width: 100%;
+
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  background: var(--glass-surface);
+}
+
+.admin-education__table-header,
+.admin-education__row {
+  display: grid;
+
+  grid-template-columns:
+    minmax(200px, 1.4fr)
+    minmax(180px, 1.2fr)
+    minmax(150px, 1fr)
+    130px
+    150px;
+
+  column-gap: 20px;
+
+  align-items: center;
+}
+
+.admin-education__table-header {
+  min-height: 42px;
+
+  padding: 0 20px;
+
+  border-bottom: 1px solid var(--glass-border);
+
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+
+  color: var(--color-text-muted);
+}
+
+.admin-education__row {
+  min-height: 86px;
+
+  padding: 16px 20px;
+
+  border-bottom: 1px solid var(--glass-border);
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.admin-education__row:last-child {
+  border-bottom: none;
+}
+
+.admin-education__row:hover {
+  background: var(--glass-surface-hover);
+}
+
+/* =========================================
+   INSTITUTION
+========================================= */
+
+.admin-education__institution {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  min-width: 0;
+}
+
+.admin-education__institution strong {
+  overflow: hidden;
+
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+
+  line-height: 1.3;
+
+  color: var(--color-text-primary);
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-education__institution span {
+  font-family: var(--font-mono);
+  font-size: 8px;
+
+  color: var(--color-text-muted);
+}
+
+/* =========================================
+   DEGREE
+========================================= */
+
+.admin-education__degree {
+  min-width: 0;
+
+  overflow: hidden;
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  line-height: 1.5;
+
+  color: var(--color-text-secondary);
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================
+   FIELD
+========================================= */
+
+.admin-education__field {
+  min-width: 0;
+
+  overflow: hidden;
+
+  font-family: var(--font-body);
+  font-size: 11px;
+
+  color: var(--color-text-secondary);
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================
+   PERIOD
+========================================= */
+
+.admin-education__period {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+
+  color: var(--color-accent);
+
+  white-space: nowrap;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1000px) {
+  .admin-education__table {
+    overflow-x: auto;
+  }
+
+  .admin-education__table-header,
+  .admin-education__row {
+    min-width: 900px;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-education__table-header,
+  .admin-education__row {
+    min-width: 820px;
+  }
+}

@@ -5,28 +5,57 @@ import "./admin.css";
 import Login from "./components/pages/Login/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminLayout from "./components/layout/AdminLayout";
-
 import Dashboard from "./components/pages/Dashboard/Dashboard";
 import Projects from "./components/pages/Projects/Project";
 import Experience from "./components/pages/Experience/Experience";
 import Skills from "./components/pages/Skills/Skills";
+import AIKnowledge from "./components/pages/AIKnowledge/AIKnowledge";
+import Education from "./components/pages/Education/Education";
 
 function AdminApp() {
   return (
     <Routes>
+
       <Route index element={<Login />} />
 
       <Route element={<ProtectedRoute />}>
+
         <Route element={<AdminLayout />}>
+
           <Route
             path="dashboard"
-            element={<Dashboard/>}
+            element={<Dashboard />}
           />
-          <Route path="projects" element={<Projects />} />
-          <Route path="experience" element={<Experience />} />
-          <Route path="skills" element={<Skills />} />
+
+          <Route
+            path="projects"
+            element={<Projects />}
+          />
+
+          <Route
+            path="experience"
+            element={<Experience />}
+          />
+
+          <Route
+            path="skills"
+            element={<Skills />}
+          />
+
+          <Route
+            path="ai-knowledge"
+            element={<AIKnowledge />}
+          />
+
+          <Route
+            path="education"
+            element={<Education />}
+          />
+
         </Route>
+
       </Route>
+
     </Routes>
   );
 }

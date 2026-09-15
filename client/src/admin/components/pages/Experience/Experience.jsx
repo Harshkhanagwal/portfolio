@@ -175,7 +175,7 @@ function Experience() {
   };
 
   return (
-    <div className="admin-page">
+    <section className="admin-page">
 
       {/* Header */}
 
@@ -598,7 +598,7 @@ function Experience() {
 
       </div>
 
-    </div>
+    </section>
   );
 }
 

@@ -7,7 +7,8 @@ const projectRoutes = require("./routes/projectRoutes");
 const experienceRoutes = require("./routes/experienceRoutes");
 const skillRoutes = require("./routes/skillRoutes");
 const overviewRoutes = require("./routes/overviewRoutes");
-
+const aiKnowledgeRoutes = require("./routes/aiKnowledgeRoutes");
+const educationRoutes = require("./routes/educationRoutes");
 const aiRoutes = require("./routes/aiRoutes");
 
 const app = express();
@@ -42,6 +43,8 @@ app.use("/api/experience", experienceRoutes);
 app.use("/api/skills", skillRoutes);
 app.use("/api/admin/overview", overviewRoutes);
 app.use("/api/ai", aiRoutes);
+app.use("/api/ai-knowledge", aiKnowledgeRoutes);
+app.use("/api/education", educationRoutes);
 
 /* -------------------- 404 -------------------- */
 

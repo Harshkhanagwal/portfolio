@@ -211,7 +211,7 @@ function Projects() {
   };
 
   return (
-    <div className="admin-page">
+    <section className="admin-page">
 
       {/* Header */}
 
@@ -697,7 +697,7 @@ function Projects() {
 
       </div>
 
-    </div>
+    </section>
   );
 }
 

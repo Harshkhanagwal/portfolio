@@ -31,6 +31,7 @@
 
 .admin-page {
   width: 100%;
+  padding: 0 !important;
 }
 
 .admin-page__header {
