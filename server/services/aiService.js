@@ -1,7 +1,8 @@
 const Groq = require("groq-sdk");
 
-const AI_SYSTEM_PROMPT = require("../config/aiPrompt");
 const AI_RESPONSE_SCHEMA = require("../config/aiResponseSchema");
+const AI_SYSTEM_PROMPT = require("../config/aiPrompt");
+const AI_ROUTING_PROMPT = require("../config/aiRoutingPrompt");
 
 const {
   experienceTool,
@@ -14,155 +15,232 @@ const {
 } = require("./aiTools/projects");
 
 const {
+  aiKnowledgeTool,
+  getAIKnowledge,
+} = require("./aiTools/aiKnowledge");
+
+const {
   skillsTool,
   getSkills,
 } = require("./aiTools/skills");
+
+const {
+  educationTool,
+  getEducation,
+} = require("./aiTools/education");
+
+const {
+  portfolioTool,
+  getPortfolioContext,
+} = require("./aiTools/portfolio");
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
+// =========================================
+// AVAILABLE TOOLS
+// =========================================
 const tools = [
   experienceTool,
   projectsTool,
   skillsTool,
+  aiKnowledgeTool,
+  educationTool,
+  portfolioTool,
 ];
 
+// =========================================
+// TOOL HANDLERS
+// =========================================
 const toolHandlers = {
   getExperience,
   getProjects,
   getSkills,
+  getAIKnowledge,
+  getEducation,
+  getPortfolioContext,
 };
 
+// =========================================
+// MAIN AI RESPONSE
+// =========================================
 
 const generateResponse = async (message) => {
-  // --------------------------------
-  // CALL 1 — TOOL DECISION
-  // --------------------------------
+  // ---------------------------------------
+  // STEP 1: TOOL ROUTING
+  // ---------------------------------------
 
-  const completion = await groq.chat.completions.create({
-    model: process.env.GROQ_MODEL,
-
-    messages: [
-      {
-        role: "system",
-        content: `
-        You are Harsh's AI Assistant.
-
-        Your job in this step is to determine whether
-        you need any of the available tools to answer
-        the user's question.
-
-        Use a tool when the user's question requires
-        specific information about Harsh's portfolio.
-
-        If no tool is required, respond with normal text.
-
-        Do not create or call tools that are not provided.
-        `,
-      },
-      {
-        role: "user",
-        content: message,
-      },
-    ],
-
-    tools,
-  });
-
-  const assistantMessage = completion.choices[0].message;
-
-  // --------------------------------
-  // NO TOOL REQUIRED
-  // --------------------------------
-
-    if (!assistantMessage.tool_calls?.length) {
-    return await generateFinalResponse([
-      {
-        role: "system",
-        content: AI_SYSTEM_PROMPT,
-      },
-      {
-        role: "user",
-        content: message,
-      },
-      {
-        role: "assistant",
-        content: assistantMessage.content || "",
-      },
-    ]);
-  }
-
-  // --------------------------------
-  // TOOL REQUIRED
-  // --------------------------------
-
-  const messages = [
+  const routingMessages = [
     {
       role: "system",
-      content: AI_SYSTEM_PROMPT,
+      content: AI_ROUTING_PROMPT,
     },
     {
       role: "user",
       content: message,
     },
-    assistantMessage,
   ];
 
-  // --------------------------------
-  // EXECUTE TOOL CALLS
-  // --------------------------------
+  const completion =
+    await groq.chat.completions.create({
+      model: process.env.GROQ_MODEL,
 
-  for (const toolCall of assistantMessage.tool_calls) {
-    const toolName = toolCall.function.name;
+      messages: routingMessages,
 
-    const toolHandler = toolHandlers[toolName];
+      tools,
 
-    if (!toolHandler) {
-      throw new Error(`Unknown tool: ${toolName}`);
-    }
+      tool_choice: "auto",
 
-    const toolResult = await toolHandler();
+      // Single tool call
+      parallel_tool_calls: false,
+    });
 
-    messages.push({
-      role: "tool",
-      tool_call_id: toolCall.id,
-      content: JSON.stringify(toolResult),
+  const assistantMessage =
+    completion.choices[0].message;
+
+  // ---------------------------------------
+  // STEP 2: NO TOOL REQUIRED
+  // ---------------------------------------
+
+  if (!assistantMessage.tool_calls?.length) {
+    return await generateFinalResponse({
+      message,
+      toolResult: null,
     });
   }
 
-  // --------------------------------
-  // CALL 2 — FINAL RESPONSE
-  // --------------------------------
+  // ---------------------------------------
+  // STEP 3: USE FIRST TOOL
+  // ---------------------------------------
 
-  return await generateFinalResponse(messages);
+  const toolCall =
+    assistantMessage.tool_calls[0];
+
+  const toolName =
+    toolCall.function.name;
+
+  const toolHandler =
+    toolHandlers[toolName];
+
+  if (!toolHandler) {
+    throw new Error(
+      `Unknown tool: ${toolName}`
+    );
+  }
+
+  // ---------------------------------------
+  // STEP 4: EXECUTE TOOL
+  // ---------------------------------------
+
+  const toolResult =
+    await toolHandler();
+
+  // ---------------------------------------
+  // STEP 5: FINAL RESPONSE
+  // ---------------------------------------
+
+  return await generateFinalResponse({
+    message,
+    toolResult: {
+      tool: toolName,
+      result: toolResult,
+    },
+  });
 };
 
-
-// --------------------------------
+// =========================================
 // FINAL RESPONSE GENERATOR
-// --------------------------------
+// =========================================
 
-const generateFinalResponse = async (messages) => {
+const generateFinalResponse = async ({
+  message,
+  toolResult,
+}) => {
+  const retrievedData = toolResult
+    ? JSON.stringify(toolResult)
+    : "No portfolio tool was required.";
+
+  const finalMessages = [
+    {
+      role: "system",
+      content: `
+${AI_SYSTEM_PROMPT}
+
+FINAL RESPONSE MODE
+
+Generate the final answer to the user's
+original question.
+
+Tool execution has already been completed.
+
+Do NOT call any tools.
+
+Use only the information available below
+and the original user question.
+
+RETRIEVED PORTFOLIO INFORMATION:
+
+${retrievedData}
+
+IMPORTANT:
+
+- Treat retrieved portfolio information as
+  the source of truth.
+- Never invent information about Harsh.
+- If the requested information is unavailable,
+  say so clearly.
+- Answer directly and concisely.
+- Follow all rules from the main system prompt.
+- The "text" field must contain valid HTML.
+- Return the required structured response.
+      `,
+    },
+
+    {
+      role: "user",
+      content: message,
+    },
+  ];
+
   const finalCompletion =
     await groq.chat.completions.create({
       model: process.env.GROQ_MODEL,
 
-      messages,
+      messages: finalMessages,
 
-      response_format: AI_RESPONSE_SCHEMA,
+      tool_choice: "none",
+
+      response_format:
+        AI_RESPONSE_SCHEMA,
     });
 
   const content =
     finalCompletion.choices[0].message.content;
 
   if (!content) {
-    throw new Error("AI returned an empty response");
+    throw new Error(
+      "AI returned an empty response"
+    );
   }
 
-  return JSON.parse(content);
+  try {
+    return JSON.parse(content);
+  } catch (error) {
+    console.error(
+      "Invalid AI response:",
+      content
+    );
+
+    throw new Error(
+      "AI returned an invalid structured response"
+    );
+  }
 };
 
+// =========================================
+// EXPORT
+// =========================================
 
 module.exports = {
   generateResponse,

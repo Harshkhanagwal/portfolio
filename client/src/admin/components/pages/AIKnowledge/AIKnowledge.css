@@ -1,0 +1,225 @@
+/* =========================================================
+   AI KNOWLEDGE PAGE
+========================================================= */
+
+.admin-ai-knowledge {
+  width: 100%;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.admin-ai-knowledge__form-card {
+  margin-bottom: 32px;
+}
+
+.admin-ai-knowledge__form-eyebrow {
+  display: block;
+  margin-bottom: 7px;
+
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+
+  color: var(--color-text-muted);
+}
+
+.admin-ai-knowledge__hint {
+  font-family: var(--font-mono);
+  font-size: 8px;
+
+  color: var(--color-text-muted);
+}
+
+
+/* =========================================================
+   LIST
+========================================================= */
+
+.admin-ai-knowledge__list {
+  width: 100%;
+}
+
+.admin-ai-knowledge__list-header {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 14px;
+}
+
+.admin-ai-knowledge__count {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+
+  color: var(--color-text-muted);
+}
+
+
+/* =========================================================
+   CARD GRID
+========================================================= */
+
+.admin-ai-knowledge__grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 16px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.admin-ai-knowledge__card {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 230px;
+
+  padding: 22px;
+
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+
+  background: var(--glass-surface);
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-ai-knowledge__card:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: var(--glass-surface-hover);
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   CARD TOP
+========================================================= */
+
+.admin-ai-knowledge__card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-bottom: 22px;
+}
+
+.admin-ai-knowledge__card-top h2 {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2;
+
+  color: var(--color-text-primary);
+}
+
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+
+.admin-ai-knowledge__category {
+  flex-shrink: 0;
+
+  padding: 5px 9px;
+
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: var(--color-text-secondary);
+}
+
+.admin-ai-knowledge__category--professional {
+  color: var(--color-accent);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.admin-ai-knowledge__description {
+  flex: 1;
+
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.7;
+
+  color: var(--color-text-secondary);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.admin-ai-knowledge__card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-top: 24px;
+  padding-top: 16px;
+
+  border-top: 1px solid var(--glass-border);
+}
+
+.admin-ai-knowledge__index {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+
+  color: var(--color-text-muted);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .admin-ai-knowledge__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-ai-knowledge__card {
+    min-height: 210px;
+    padding: 18px;
+  }
+
+  .admin-ai-knowledge__card-top {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .admin-ai-knowledge__card-footer {
+    align-items: flex-end;
+  }
+}
