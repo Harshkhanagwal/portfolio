@@ -18,6 +18,7 @@
 
   import SmoothScroll from "./components/elements/SmoothScroll";
   import AdminApp from "./admin/adminApp";
+  import AIAssistant from './components/AIchatBot/AIchatbot'
 
   function Portfolio() {
     return (
@@ -32,6 +33,7 @@
         <Experience />
         <Contact />
         <Footer />
+        <AIAssistant/>
       </>
     );
   }

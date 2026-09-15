@@ -1,36 +1,7 @@
 import "./AIchatbot.css";
 import { useEffect, useRef, useState } from "react";
-
-const initialMessages = [
-  {
-    id: 1,
-    role: "assistant",
-    text:
-      "Hey — I’m Harsh’s AI Assistant. You can ask me about his projects, skills, experience, education, or what he’s currently building.",
-    suggestions: [
-      "What are Harsh's best projects?",
-      "What is his AI experience?",
-      "What technologies does he use?",
-    ],
-  },
-  {
-    id: 2,
-    role: "user",
-    text: "Tell me about his AI engineering experience.",
-  },
-  {
-    id: 3,
-    role: "assistant",
-    text:
-      "Harsh is building experience around Generative AI, LLM applications, RAG systems, and AI-powered product development alongside his full-stack background.",
-    suggestions: [
-      "Show me his AI projects",
-      "What does he know about RAG?",
-      "Tell me about his web skills",
-    ],
-  },
-];
-
+import DOMPurify from "dompurify";
+  
 function AssistantIcon() {
   return (
     <svg
@@ -71,6 +42,8 @@ function SendIcon() {
 export default function AIAssistant() {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const dialogRef = useRef(null);
   const messageAreaRef = useRef(null);
@@ -93,95 +66,150 @@ export default function AIAssistant() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // UI only for now.
-    // Actual message handling will be connected later.
+    const message = inputValue.trim();
+
+    if (!message || isLoading) return;
+
+    setInputValue("");
+
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: crypto.randomUUID(),
+        role: "user",
+        text: message,
+      },
+    ]);
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:5001/api/ai/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Failed to get AI response");
+      }
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          role: "assistant",
+          text: result.data.text,
+          suggestions: result.data.suggestions,
+        },
+      ]);
+    } catch (error) {
+      console.error("AI Assistant error:", error);
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          role: "assistant",
+          text: "Sorry, I couldn't process your request right now.",
+        },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
- useEffect(() => {
-  if (!isOpen) {
-    window.__lenis?.start();
-    return;
-  }
-
-  const previousOverflow = document.body.style.overflow;
-  const previousPaddingRight = document.body.style.paddingRight;
-
-  const scrollbarWidth =
-    window.innerWidth - document.documentElement.clientWidth;
-
-  // Stop Lenis from controlling the page.
-  window.__lenis?.stop();
-
-  // Lock normal body scrolling.
-  document.body.style.overflow = "hidden";
-
-  if (scrollbarWidth > 0) {
-    document.body.style.paddingRight = `${scrollbarWidth}px`;
-  }
-
-  const handleKeyDown = (event) => {
-    if (event.key === "Escape") {
-      closeAssistant();
-    }
-
-    if (event.key !== "Tab" || !dialogRef.current) {
+  useEffect(() => {
+    if (!isOpen) {
+      window.__lenis?.start();
       return;
     }
 
-    const focusableElements =
-      dialogRef.current.querySelectorAll(
-        'button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
-      );
+    const previousOverflow = document.body.style.overflow;
+    const previousPaddingRight = document.body.style.paddingRight;
 
-    if (!focusableElements.length) return;
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
 
-    const firstElement = focusableElements[0];
-    const lastElement =
-      focusableElements[focusableElements.length - 1];
+    // Stop Lenis from controlling the page.
+    window.__lenis?.stop();
 
-    if (
-      event.shiftKey &&
-      document.activeElement === firstElement
-    ) {
-      event.preventDefault();
-      lastElement.focus();
-    } else if (
-      !event.shiftKey &&
-      document.activeElement === lastElement
-    ) {
-      event.preventDefault();
-      firstElement.focus();
+    // Lock normal body scrolling.
+    document.body.style.overflow = "hidden";
+
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
     }
-  };
 
-  document.addEventListener("keydown", handleKeyDown);
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeAssistant();
+      }
 
-  requestAnimationFrame(() => {
-    inputRef.current?.focus();
+      if (event.key !== "Tab" || !dialogRef.current) {
+        return;
+      }
 
-    if (messageAreaRef.current) {
-      messageAreaRef.current.scrollTop =
-        messageAreaRef.current.scrollHeight;
-    }
-  });
+      const focusableElements =
+        dialogRef.current.querySelectorAll(
+          'button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+        );
 
-  return () => {
-    document.body.style.overflow = previousOverflow;
-    document.body.style.paddingRight = previousPaddingRight;
+      if (!focusableElements.length) return;
 
-    document.removeEventListener("keydown", handleKeyDown);
+      const firstElement = focusableElements[0];
+      const lastElement =
+        focusableElements[focusableElements.length - 1];
 
-    // Resume smooth portfolio scrolling.
-    window.__lenis?.start();
+      if (
+        event.shiftKey &&
+        document.activeElement === firstElement
+      ) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (
+        !event.shiftKey &&
+        document.activeElement === lastElement
+      ) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
 
     requestAnimationFrame(() => {
-      launcherRef.current?.focus();
+      inputRef.current?.focus();
+
+      if (messageAreaRef.current) {
+        messageAreaRef.current.scrollTop =
+          messageAreaRef.current.scrollHeight;
+      }
     });
-  };
-}, [isOpen]);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.body.style.paddingRight = previousPaddingRight;
+
+      document.removeEventListener("keydown", handleKeyDown);
+
+      // Resume smooth portfolio scrolling.
+      window.__lenis?.start();
+
+      requestAnimationFrame(() => {
+        launcherRef.current?.focus();
+      });
+    };
+  }, [isOpen]);
 
   return (
     <>
@@ -214,7 +242,7 @@ export default function AIAssistant() {
             }
           }}
         >
-          <dev
+          <div
             ref={dialogRef}
             className="ai-assistant"
             role="dialog"
@@ -298,7 +326,8 @@ export default function AIAssistant() {
               </div>
 
               <div className="ai-assistant__conversation">
-                {initialMessages.map((message) => (
+                {/* {initialMessages.map((message) => ( */}
+                {messages.map((message) => (
                   <article
                     key={message.id}
                     className={`ai-message ai-message--${message.role}`}
@@ -309,10 +338,12 @@ export default function AIAssistant() {
                         : "YOU"}
                     </div>
 
-                    <div className="ai-message__bubble">
-                      {message.text}
-                    </div>
-
+                    <div
+                      className="ai-message__bubble"
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(message.text),
+                      }}
+                    />
                     {message.suggestions?.length > 0 && (
                       <div
                         className="ai-message__suggestions"
@@ -373,10 +404,10 @@ export default function AIAssistant() {
               </form>
 
               <p className="ai-assistant__disclaimer">
-                Portfolio assistant · UI preview
+                Portfolio assistant · Powered by AI
               </p>
             </footer>
-          </dev>
+          </div>
         </div>
       )}
     </>
