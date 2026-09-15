@@ -1,10 +1,14 @@
-const API_URL =  import.meta.env.VITE_API_URL || "http://localhost:5001/api/admin/overview";
-
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "http://localhost:5001";
 export const getAdminOverview = async () => {
-  const response = await fetch(API_URL, {
-    method: "GET",
-    credentials: "include",
-  });
+  const response = await fetch(
+    `${API_URL}/api/admin/overview`,
+    {
+      method: "GET",
+      credentials: "include",
+    }
+  );
 
   const result = await response.json();
 
