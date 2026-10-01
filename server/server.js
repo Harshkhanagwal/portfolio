@@ -10,26 +10,24 @@ const connectDB = require("./config/db");
 
 const PORT = process.env.PORT || 5000;
 
+
 let dbConnectionPromise = null;
 
 const ensureDBConnection = async () => {
-  // Already connected
   if (mongoose.connection.readyState === 1) {
     return;
   }
 
-  // Connection already in progress
   if (!dbConnectionPromise) {
-    dbConnectionPromise = connectDB();
+    dbConnectionPromise = connectDB().catch((error) => {
+      dbConnectionPromise = null;
+      throw error;
+    });
   }
 
-  try {
-    await dbConnectionPromise;
-  } catch (error) {
-    dbConnectionPromise = null;
-    throw error;
-  }
+  await dbConnectionPromise;
 };
+
 
 // =========================================
 // VERCEL HANDLER
