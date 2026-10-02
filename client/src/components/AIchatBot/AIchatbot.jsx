@@ -1,7 +1,10 @@
 import "./AIchatbot.css";
 import { useEffect, useRef, useState } from "react";
 import DOMPurify from "dompurify";
-  
+
+const API_BASE_URL = (import.meta.env.VITE_API_URL || "").replace(/\/+$/, "");
+const AI_CHAT_ENDPOINT = `${API_BASE_URL}/api/ai/chat`;
+
 function AssistantIcon() {
   return (
     <svg
@@ -86,9 +89,8 @@ export default function AIAssistant() {
 
     setIsLoading(true);
 
-    console.log(`httpapi/ai/chat`)
     try {
-      const response = await fetch(`http://localhost:5001/api/ai/chat`, {
+      const response = await fetch(AI_CHAT_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
